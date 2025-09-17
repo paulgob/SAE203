@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liste des Produits</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        table {
+            margin-top: 20px;
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        button {
+            margin: 5px;
+            padding: 5px 10px;
+            color: white;
+            border: none;
+            border-radius: 4px;
+        }
+
+        .delete {
+            background-color: #f44336;
+        }
+
+        .update {
+            background-color: #4CAF50;
+        }
+
+        a {
+            display: inline-block;
+            margin: 20px 0;
+            padding: 10px 20px;
+            background-color: #008CBA;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    
+
+    <h1>Liste des Produits</h1>
+
+    <a href="formulaire-creation-produit.php">Aller sur le formulaire de création de produit</a>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nom</th>
+                <th>Description</th>
+                <th>Stock</th>
+                <th>Prix</th>
+                <th>Catégorie</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for produit in produits %}
+            <tr>
+                <td>{{ produit.id_Produit }}</td>
+                <td>{{ produit.nom }}</td>
+                <td>{{ produit.description }}</td>
+                <td>{{ produit.stock }}</td>
+                <td>{{ produit.prix }}</td>
+                <td>{{ produit.categorie_nom }}</td>
+                <td>
+                    <form method="POST" action="supprimer-produit.php">
+                        <input type="hidden" name="id_Produit" value="{{ produit.id_Produit }}">
+                        <button class="delete" type="submit">Supprimer</button>
+                    </form>
+                    <form method="POST" action="formulaire-actualiser-produit.php">
+                        <input type="hidden" name="id_Produit" value="{{ produit.id_Produit }}">
+                        <button class="update" type="submit">Actualiser</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Total</th>
+                <th>Total Animaux</th>
+                <th>Total Fleurs</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ total_produits }}</td>
+                <td>{{ total_animals }}</td>
+                <td>{{ total_flowers }}</td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
